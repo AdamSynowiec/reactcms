@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CMS - Dokumentacja techniczna</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-50 text-gray-800 font-sans min-h-screen p-10">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-3xl font-bold mb-6">
+        📄 CMS - Dokumentacja komponentu <code>&lt;EditableTag /&gt;</code>
+      </h1>
+
+      <section class="mb-10">
+        <h2 class="text-xl font-semibold mb-2">Przykład użycia:</h2>
+        <div
+          class="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm font-mono leading-relaxed"
+        >
+          &lt;EditableTag<br />
+          &nbsp;&nbsp;uid="abc123"<br />
+          &nbsp;&nbsp;tagName="div"<br />
+          &nbsp;&nbsp;className="custom-class"<br />
+          &nbsp;&nbsp;editableFields=&#123;['href', 'src']&#125;<br />
+          /&gt;
+        </div>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-xl font-semibold">Opis parametrów:</h2>
+        <div class="space-y-2">
+          <div>
+            <span class="font-mono font-semibold">uid</span>
+            <p class="ml-4 text-gray-600">
+              Unikalny identyfikator elementu. Służy do odnalezienia konkretnego
+              tagu w systemie CMS.
+            </p>
+          </div>
+          <div>
+            <span class="font-mono font-semibold">tagName</span>
+            <p class="ml-4 text-gray-600">
+              Nazwa generowanego tagu HTML, np. <code>div</code>,
+              <code>span</code>, <code>a</code>.
+            </p>
+          </div>
+          <div>
+            <span class="font-mono font-semibold">className</span>
+            <p class="ml-4 text-gray-600">
+              Klasa CSS przypisana do elementu. Pozwala dostosować wygląd
+              komponentu.
+            </p>
+          </div>
+          <div>
+            <span class="font-mono font-semibold">editableFields</span>
+            <p class="ml-4 text-gray-600">
+              Tablica z nazwami atrybutów HTML, które mogą być edytowane, np.
+              <code>href</code>, <code>src</code>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="mt-16 text-center text-sm text-gray-500">
+        Dokumentacja techniczna • CMS © 2025
+      </footer>
+    </div>
+  </body>
+</html>
