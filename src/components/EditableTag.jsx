@@ -40,7 +40,7 @@ export default function EditableTag({ tagName, className, uid, editableFields, i
                     editableFields.forEach(f => (empty[f] = f === 'items' ? [] : ''));
                     dispatch(setCurrentEdit({ uid, tagName, editableFields, content: empty }));
                 }}
-                className="border-l-5 border-red-500 bg-blue-400 text-white cursor-pointer p-2"
+                className="block w-full text-left p-4 border border-dashed cursor-pointer border-slate-300 text-slate-600 text-sm hover:bg-slate-50"
             >
                 {getString('edit.content.noTag')}
             </button>
