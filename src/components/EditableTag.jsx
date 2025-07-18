@@ -31,7 +31,6 @@ export default function EditableTag({ tagName, className, uid, editableFields, i
             dispatch(setCurrentEdit({ uid, tagName, editableFields, content: liveContent || {} }));
         }
     };
-
     if (!liveContent) {
         return editMode ? (
             <button

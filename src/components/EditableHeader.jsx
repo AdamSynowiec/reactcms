@@ -6,13 +6,23 @@ import edit_icon from '../assets/icons/edit_icon.svg';
 import close_icon from '../assets/icons/close_icon.svg';
 import user_icon from '../assets/icons/user_icon.svg';
 
+import { logout } from "../features/auth/authSlice";
+
 const EditableHeader = () => {
     const dispatch = useDispatch();
     const editMode = useSelector((state) => state.editor.editMode);
     const [isAdminOpen, setIsAdminOpen] = useState(false);
+    const userToken = useSelector((state) => state.auth.userToken);
 
+    if (!userToken) {
+        return null;
+    }
     const toggleAdminMenu = () => {
         setIsAdminOpen(prev => !prev);
+    };
+    const handleLogout = () => {
+        dispatch(logout())
+        localStorage.removeItem('token');
     };
 
     return (
@@ -46,11 +56,20 @@ const EditableHeader = () => {
                     </button>
 
                     {isAdminOpen && (
-                        <div className="absolute right-2 bg-stone-800 shadow-lg w-40 text-white text-sm">
+                        <nav className="absolute right-2 bg-stone-800 shadow-lg w-40 text-white text-sm" role="menu">
                             <ul>
-                                <li className="px-4 py-2 hover:bg-stone-600 cursor-pointer border-b border-stone-700">Wyloguj</li>
+                                <li role="none">
+                                    <button
+                                        onClick={handleLogout}
+                                        role="menuitem"
+                                        className="cursor-pointer w-full text-left px-4 py-2 hover:bg-stone-600 border-b border-stone-700"
+                                    >
+                                        Wyloguj
+                                    </button>
+                                </li>
                             </ul>
-                        </div>
+                        </nav>
+
                     )}
                 </div>
             </div>

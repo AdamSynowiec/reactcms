@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Input from '../components/Input';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUserAuthState } from '../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,6 +8,12 @@ const LoginPage = () => {
     const [form, setForm] = useState({ login: '', password: '' });
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const userToken = useSelector((state) => state.auth.userToken);
+
+    // Ukrywamy header, jeśli nie ma tokena lub nie jesteśmy na /admin
+    if (userToken) {
+        navigate('/', { replace: true });
+    }
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -33,7 +39,7 @@ const LoginPage = () => {
                 userToken: data.token,
             }));
             localStorage.setItem('token', data.token)
-            navigate("/");
+            navigate("/", { replace: true });
         } catch (error) {
             console.error('Błąd:', error.message);
         }
