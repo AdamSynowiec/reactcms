@@ -7,9 +7,11 @@ import close_icon from '../assets/icons/close_icon.svg';
 import user_icon from '../assets/icons/user_icon.svg';
 
 import { logout } from "../features/auth/authSlice";
+import { useNavigate } from 'react-router-dom';
 
 const EditableHeader = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const editMode = useSelector((state) => state.editor.editMode);
     const [isAdminOpen, setIsAdminOpen] = useState(false);
     const userToken = useSelector((state) => state.auth.userToken);
@@ -21,8 +23,8 @@ const EditableHeader = () => {
         setIsAdminOpen(prev => !prev);
     };
     const handleLogout = () => {
-        dispatch(logout())
-        localStorage.removeItem('token');
+        navigate('/logout');
+
     };
 
     return (
