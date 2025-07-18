@@ -43,7 +43,7 @@ export default function EditableTag({ tagName, className, uid, editableFields, i
             >
                 {getString('edit.content.noTag')}
             </button>
-        ) : <div className=''>{getString('edit.content.noContent')}</div>;
+        ) : <Skeleton />;
     }
 
     if (isVoid) {
@@ -66,7 +66,7 @@ export default function EditableTag({ tagName, className, uid, editableFields, i
     }
 
     if (tagName === 'ul' || tagName === 'ol') {
-        const items = liveContent.items?.length ? liveContent.items : DUMMY_VALUES.items;
+        const items = liveContent.items?.length ? liveContent.items : [{ text: 'Brak elementów', href: '#' }];
         return <Tag
             className={`${className || ''} ${editMode ? 'outline outline-2 outline-blue-400 cursor-pointer hover:bg-blue-400/[0.1]' : ''}`}
             uid={uid}
@@ -77,7 +77,11 @@ export default function EditableTag({ tagName, className, uid, editableFields, i
                 }
             }}
         >
-            {items.map((item, i) => <li key={i}>{item}</li>)}
+            {items.map((item, i) => (
+                <li key={i}>
+                    <a href={item.href || '#'}>{item.text || 'Brak tekstu'}</a>
+                </li>
+            ))}
         </Tag>;
     }
 

@@ -58,7 +58,7 @@ export default function EditorSidebar() {
     const textMapping = (text) => ({ text: "Tekst", href: "Link", alt: "Opis zdjęcia (alt)", src: "Źródło (src)" }[text] || text);
 
     return (
-        <div className="fixed top-0 right-0 w-80 h-full bg-white p-6 z-50 border-l border-[#eee]">
+        <div className="fixed top-0 right-0 w-80 h-full bg-white p-6 z-[50] border-l border-[#eee]">
             <h2 className="text-lg font-bold mb-4">Edycja elementu: {currentEdit.tagName.toUpperCase()}</h2>
             {currentEdit.editableFields.map((field) => {
                 if (field === 'items') {
@@ -66,34 +66,43 @@ export default function EditorSidebar() {
                         <div key={field}>
                             <label className="block mb-2 font-semibold">Elementy listy:</label>
                             {(formData.items || []).map((item, idx) => (
-                                <div key={idx} className="flex items-center gap-2 mb-2">
+                                <div key={idx} className="mb-4 border-b pb-2">
+                                    <label className="block mb-1 font-semibold">Tekst elementu {idx + 1}:</label>
                                     <input
-                                        className="border px-2 py-1 rounded w-full"
-                                        value={item}
+                                        className="border px-2 py-1 rounded w-full mb-2"
+                                        value={item.text || ''}
                                         onChange={e => {
                                             const updated = [...formData.items];
-                                            updated[idx] = e.target.value;
+                                            updated[idx] = { ...updated[idx], text: e.target.value };
+                                            setFormData({ ...formData, items: updated });
+                                        }}
+                                    />
+                                    <label className="block mb-1 font-semibold">Link elementu {idx + 1}:</label>
+                                    <input
+                                        className="border px-2 py-1 rounded w-full"
+                                        value={item.href || ''}
+                                        onChange={e => {
+                                            const updated = [...formData.items];
+                                            updated[idx] = { ...updated[idx], href: e.target.value };
                                             setFormData({ ...formData, items: updated });
                                         }}
                                     />
                                     <button
-                                        onClick={() =>
-                                            setFormData({ ...formData, items: formData.items.filter((_, i) => i !== idx) })
-                                        }
-                                        className="text-red-500"
+                                        onClick={() => setFormData({ ...formData, items: formData.items.filter((_, i) => i !== idx) })}
+                                        className="text-red-500 mt-1"
                                     >
-                                        ✕
+                                        ✕ Usuń element
                                     </button>
                                 </div>
                             ))}
+
                             <button
                                 className="bg-blue-500 text-white px-3 py-1 rounded"
-                                onClick={() =>
-                                    setFormData({ ...formData, items: [...(formData.items || []), ''] })
-                                }
+                                onClick={() => setFormData({ ...formData, items: [...(formData.items || []), { text: '', href: '' }] })}
                             >
-                                + Dodaj
+                                + Dodaj element
                             </button>
+
                         </div>
                     );
                 }
